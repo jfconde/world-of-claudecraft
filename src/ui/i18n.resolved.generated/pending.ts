@@ -9,25 +9,85 @@
 // Reproducibility is checked by tests/i18n_resolved_equivalence.test.ts.
 
 export const pending: Record<string, readonly string[]> = {
-  "es": [],
-  "es_ES": [],
-  "fr_FR": [],
-  "fr_CA": [],
+  "es": [
+    "hudChrome.nameplate.mobEliteLevel",
+    "hudChrome.nameplate.mobLevel"
+  ],
+  "es_ES": [
+    "hudChrome.nameplate.mobEliteLevel",
+    "hudChrome.nameplate.mobLevel"
+  ],
+  "fr_FR": [
+    "hudChrome.nameplate.mobEliteLevel",
+    "hudChrome.nameplate.mobLevel"
+  ],
+  "fr_CA": [
+    "hudChrome.nameplate.mobEliteLevel",
+    "hudChrome.nameplate.mobLevel"
+  ],
   "en_CA": [],
-  "it_IT": [],
-  "de_DE": [],
-  "zh_CN": [],
-  "zh_TW": [],
-  "ko_KR": [],
-  "ja_JP": [],
-  "pt_BR": [],
-  "ru_RU": [],
-  "cs_CZ": [],
-  "nl_NL": [],
-  "pl_PL": [],
-  "id_ID": [],
-  "tr_TR": [],
-  "sv_SE": [],
-  "vi_VN": [],
-  "da_DK": []
+  "it_IT": [
+    "hudChrome.nameplate.mobEliteLevel",
+    "hudChrome.nameplate.mobLevel"
+  ],
+  "de_DE": [
+    "hudChrome.nameplate.mobEliteLevel",
+    "hudChrome.nameplate.mobLevel"
+  ],
+  "zh_CN": [
+    "hudChrome.nameplate.mobEliteLevel",
+    "hudChrome.nameplate.mobLevel"
+  ],
+  "zh_TW": [
+    "hudChrome.nameplate.mobEliteLevel",
+    "hudChrome.nameplate.mobLevel"
+  ],
+  "ko_KR": [
+    "hudChrome.nameplate.mobEliteLevel",
+    "hudChrome.nameplate.mobLevel"
+  ],
+  "ja_JP": [
+    "hudChrome.nameplate.mobEliteLevel",
+    "hudChrome.nameplate.mobLevel"
+  ],
+  "pt_BR": [
+    "hudChrome.nameplate.mobEliteLevel",
+    "hudChrome.nameplate.mobLevel"
+  ],
+  "ru_RU": [
+    "hudChrome.nameplate.mobEliteLevel",
+    "hudChrome.nameplate.mobLevel"
+  ],
+  "cs_CZ": [
+    "hudChrome.nameplate.mobEliteLevel",
+    "hudChrome.nameplate.mobLevel"
+  ],
+  "nl_NL": [
+    "hudChrome.nameplate.mobEliteLevel",
+    "hudChrome.nameplate.mobLevel"
+  ],
+  "pl_PL": [
+    "hudChrome.nameplate.mobEliteLevel",
+    "hudChrome.nameplate.mobLevel"
+  ],
+  "id_ID": [
+    "hudChrome.nameplate.mobEliteLevel",
+    "hudChrome.nameplate.mobLevel"
+  ],
+  "tr_TR": [
+    "hudChrome.nameplate.mobEliteLevel",
+    "hudChrome.nameplate.mobLevel"
+  ],
+  "sv_SE": [
+    "hudChrome.nameplate.mobEliteLevel",
+    "hudChrome.nameplate.mobLevel"
+  ],
+  "vi_VN": [
+    "hudChrome.nameplate.mobEliteLevel",
+    "hudChrome.nameplate.mobLevel"
+  ],
+  "da_DK": [
+    "hudChrome.nameplate.mobEliteLevel",
+    "hudChrome.nameplate.mobLevel"
+  ]
 };
