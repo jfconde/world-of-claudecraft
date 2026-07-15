@@ -151,11 +151,13 @@ export class NameplatePainter {
         v.nameplateDisplay = '';
       }
       const isCurrentTarget = id === p.targetId;
+      const deadEnemy = e.dead && (e.hostile || (e.kind === 'player' && this.isHostilePlayer(e)));
       v.nameplate.classList.toggle('np-current-target', isCurrentTarget);
       // Mob status indicators for WoW-style nameplate coloring (applied to all entity types).
       // These classes stay on even during throttled passes (before early continue) so colors
       // remain consistent and responsive to aggro/pet state changes.
       v.nameplate.classList.toggle('np-hostile', e.hostile);
+      v.nameplate.classList.toggle('np-dead-enemy', deadEnemy);
       v.nameplate.classList.toggle('np-my-pet', e.ownerId === p.id);
       v.nameplate.classList.toggle('np-aggroed-on-me', e.aggroTargetId === p.id);
       if (!fullPass && !plan.urgent) continue;
@@ -229,9 +231,9 @@ export class NameplatePainter {
         const isAi = !suppressSelf && e.aiAccount === true;
         this.setNameplateStatic(
           v,
-          `player|${displayName}|${roleColor ?? ''}|${guild}|${nameDisplay}|${hpDisplay}|${opacity}|${devOutline ?? ''}|${isAi ? 1 : 0}`,
+          `player|${displayName}|${roleColor ?? ''}|${guild}|${nameDisplay}|${hpDisplay}|${opacity}|${devOutline ?? ''}|${isAi ? 1 : 0}|${deadEnemy ? 1 : 0}`,
           displayName,
-          roleColor ?? '#7fb8ff',
+          deadEnemy ? null : (roleColor ?? '#7fb8ff'),
           hpDisplay,
           '',
           'np-marker',
@@ -324,7 +326,7 @@ export class NameplatePainter {
           v,
           `mob|${displayName}|${levelText}|${color}|${hpDisplay}|${marker}|${frame}`,
           displayName,
-          '#fff',
+          deadEnemy ? null : '#fff',
           hpDisplay,
           marker,
           'np-marker loot',
@@ -365,6 +367,7 @@ export class NameplatePainter {
     }
     v.nameplate.classList.remove('np-current-target');
     v.nameplate.classList.remove('np-hostile');
+    v.nameplate.classList.remove('np-dead-enemy');
     v.nameplate.classList.remove('np-my-pet');
     v.nameplate.classList.remove('np-aggroed-on-me');
     v.nameplate.classList.remove('np-friendly-pet');
@@ -374,20 +377,24 @@ export class NameplatePainter {
     v: EntityView,
     sig: string,
     name: string,
-    color: string,
+    color: string | null,
     hpDisplay: string,
     marker: string,
     markerClass: string,
     opacity: string,
-    frame = '',
-    guild = '',
+    frame = 'elite',
+    guild = 'TestGuild',
     devOutline: string | null = null,
     isAi = false,
   ): void {
     if (sig === v.nameplateSig) return;
     v.nameplateSig = sig;
     v.nameEl.textContent = name;
-    v.nameEl.style.color = color;
+    if (color === null) {
+      v.nameEl.style.removeProperty('color');
+    } else {
+      v.nameEl.style.color = color;
+    }
     v.hpBar.style.display = hpDisplay;
     v.hpBar.classList.toggle('elite', frame === 'elite');
     v.hpBar.classList.toggle('boss', frame === 'boss');

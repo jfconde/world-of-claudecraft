@@ -29,48 +29,45 @@
     text-shadow: 1px 1px 2px #000;
     white-space: nowrap;
     will-change: transform;
-    --nameplate-width: 100px;
+    --nameplate-width: 90px;
     --nameplate-text-shadow: 1px 1px 3px #000, -1px -1px 3px #000;
-    --nameplate-text-shadow-active: 2px 2px 3px #000, -2px -2px 3px #000;
+    --nameplate-text-shadow-active: 2px 2px 8px #000, -2px -2px 8px #000;
   }
   .nameplate.has-emote {
     z-index: 30;
   }
   .np-name {
-    font-size: 12px;
+    font-size: 13px;
     font-weight: bold;
     font-family: var(--title-font);
+    color: #fff;
     text-shadow: var(--nameplate-text-shadow);
     letter-spacing: 0.3px;
     display: inline-block;
-    transition: font-size 0.05s linear;
+    transition: font-size 0.1s linear;
     vertical-align: middle;
   }
-  /* Mob level badge, displayed inline to the left of the mob name. Gets the
-     con (difficulty) color so it reads as the difficulty indicator; the name
-     itself stays white so only the bracket is colored. Hidden for all non-mob
-     entity kinds (players, NPCs, objects). */
   .np-level {
-    border-radius: 50%;
-    font-size: 16px;
+    font-size: 19px;
     font-weight: bold;
     font-family: var(--title-font);
-    /*background-image: radial-gradient(circle at 50% 50%, #000 -50%, transparent);*/
     text-shadow: var(--nameplate-text-shadow);
     letter-spacing: 0.2px;
     display: inline-block;
     vertical-align: middle;
     text-align: right;
     line-height: 12px;
-    margin-right: 4px;
+    margin-right: 6px;
   }
   .np-guild {
-    font-size: 10px;
+    text-shadow: var(--nameplate-text-shadow);
+    font-size: 11px;
     font-weight: 700;
     color: #c9dcfb;
     font-family: var(--title-font);
     letter-spacing: 0.2px;
     margin-top: -1px;
+    transition: font-size 0.1s linear;
   }
   /* Book of Deeds title: a subtitle line under a player's name */
   .np-title {
@@ -182,10 +179,8 @@
     letter-spacing: 0.2px;
   }
   /* threat plate: this mob is aggroed on me, red bar + soft glow */
-  .nameplate .np-threat .np-hpbar {
-    border-color: #000;
-    border-width: 1px;
-    box-shadow: 0 0 6px #5d0d0899;
+  .nameplate.np-threat .np-hpbar {
+    box-shadow: 0 0 8px 3px #c0392b;
   }
 
   .nameplate.np-threat .np-hpfill {
@@ -193,22 +188,25 @@
   }
 
   .nameplate.np-current-target .np-hpbar {
-    box-shadow: 0 0 1px 2px #fff;
+    outline: solid 2px #fff8;
   }
 
   .nameplate.np-current-target .np-name {
-    font-size: 15px;
-    text-shadow: var(--nameplate-text-shadow), 0 0 4px 8px #fff;
+    font-size: 16px;
+    text-shadow: var(--nameplate-text-shadow);
   }
 
-  .nameplate.np-threat.np-current-target .np-hpbar {
-    box-shadow: 0 0 4px 2px #ff6b5e;
+  .nameplate.np-current-target .np-guild {
+    font-size: 13px;
   }
 
   /* WoW-style nameplate coloring based on mob status */
   /* Hostile mobs: red name and red HP bar */
   .nameplate.np-hostile .np-name {
     color: #ff5555;
+  }
+  .nameplate.np-dead-enemy .np-name {
+    color: #bbb;
   }
   .nameplate.np-hostile .np-hpbar {
     border-color: #ff5555;
@@ -239,7 +237,7 @@
     background: linear-gradient(#9fdc7f, #5fa040);
   }
 
-    /* classic "dragon frame" cue: elite mobs get a golden bar frame, bosses a red one */
+  /* classic "dragon frame" cue: elite mobs get a golden bar frame, bosses a red one */
   .np-hpbar.elite {
     border-color: #f2c84b;
     box-shadow:
