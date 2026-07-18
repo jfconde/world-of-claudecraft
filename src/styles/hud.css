@@ -29,6 +29,10 @@
     text-shadow: 1px 1px 2px #000;
     white-space: nowrap;
     will-change: transform;
+    /* Distance-fade ramp: the painter writes a new opacity only when the
+       entity's fade band changes (nameplate_view.nameplateFadeOpacity), so this
+       transition turns that step into a smooth fade instead of a pop. */
+    transition: opacity 0.25s ease;
     --nameplate-width: 80px;
     --nameplate-text-shadow: 1px 1px 3px #000, -1px -1px 3px #000;
   }
@@ -43,7 +47,7 @@
     text-shadow: var(--nameplate-text-shadow);
     letter-spacing: 0.3px;
     display: inline-block;
-    transition: font-size 0.1s linear;
+    transition: font-size 0.1s linear, opacity 0.3s linear;
     vertical-align: middle;
   }
 
@@ -144,6 +148,7 @@
     border: 1px solid #0000;
     margin: 1px auto 0;
     border-radius: 2px;
+    transition: opacity ease 0.3s;
   }
   .np-hpfill {
     height: 100%;
@@ -356,6 +361,31 @@
       transform: none;
       opacity: 1;
     }
+  }
+
+  /* ---------- mobile nameplate adjustments ---------- */
+  .is-mobile .nameplate {
+    --nameplate-width: 48px;
+  }
+
+  .is-mobile .nameplate .np-level {
+    font-size: 12px;
+  }
+
+  .is-mobile .nameplate .np-name {
+    font-size: 10px;
+  }
+  .is-mobile .nameplate .np-hpbar {
+    height: 3px;
+  }
+
+
+  .is-mobile .nameplate.np-faded .np-name, .is-mobile .nameplate.np-faded .np-level {
+    opacity: 0;
+  }
+
+  .is-mobile .nameplate.np-faded  .np-hpbar {
+    opacity: 0.5;
   }
 
   /* ---------- chat bubbles (/say, /yell) ---------- */

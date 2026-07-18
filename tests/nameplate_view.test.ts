@@ -1,6 +1,3 @@
-import { readFileSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
-import { describe, expect, it } from 'vitest';
 import {
   NAMEPLATE_ANCHOR_LIFT,
   NAMEPLATE_RANGE,
@@ -10,6 +7,10 @@ import {
   nameplatePlanInto,
   newNameplatePlan,
 } from '../src/render/nameplate_view';
+import { describe, expect, it } from 'vitest';
+
+import { fileURLToPath } from 'node:url';
+import { readFileSync } from 'node:fs';
 
 // The nameplate_view core: the pure DOM/Three/i18n-free decision model the
 // NameplatePainter consumes. These pin the exact visibility / anchor / urgent /

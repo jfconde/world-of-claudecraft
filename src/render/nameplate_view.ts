@@ -35,6 +35,15 @@ export const NAMEPLATE_RANGE_SQ = NAMEPLATE_RANGE * NAMEPLATE_RANGE;
 export const NAMEPLATE_URGENT_RANGE = 14;
 const NAMEPLATE_URGENT_RANGE_SQ = NAMEPLATE_URGENT_RANGE * NAMEPLATE_URGENT_RANGE;
 
+// Beyond this many yards a visible nameplate dims (the painter's `np-faded`
+// class; see hud.css) instead of drawing at full strength: a crowded pull out
+// near NAMEPLATE_RANGE otherwise reads as a wall of full-strength plates, worst
+// on mobile's smaller viewport. One threshold, not a multi-band ramp, so this
+// stays a single cheap-diffed class toggle on the painter side. Squared once at
+// module load, same idiom as the ranges above.
+export const NAMEPLATE_FADE_RANGE = 36;
+const NAMEPLATE_FADE_RANGE_SQ = NAMEPLATE_FADE_RANGE * NAMEPLATE_FADE_RANGE;
+
 // Vertical lift (world units) of the nameplate anchor above the rig top before
 // projection: the normal label sits a touch higher than the self overhead-emote
 // bubble, which hugs the head.
@@ -67,6 +76,9 @@ export interface NameplatePlan {
   threat: boolean;
   /** combo pips the viewer has built on this entity (0 = hide the row) */
   comboPips: number;
+  /** beyond NAMEPLATE_FADE_RANGE (and not urgent): the painter dims the plate
+   *  via the `np-faded` class instead of drawing it at full strength. */
+  faded: boolean;
 }
 
 /** A zeroed plan for the painter to own and reuse. */
@@ -78,6 +90,7 @@ export function newNameplatePlan(): NameplatePlan {
     hasOverheadEmote: false,
     threat: false,
     comboPips: 0,
+    faded: false,
   };
 }
 
@@ -142,5 +155,8 @@ export function nameplatePlanInto(
   out.hasOverheadEmote = hasOverheadEmote;
   out.threat = isMobThreateningViewer(e, player.id);
   out.comboPips = comboPipsFor(player, e);
+  // The current target and anything urgent (very close / casting) never dims:
+  // it must stay maximally readable regardless of distance.
+  out.faded = !out.urgent && d2 > NAMEPLATE_FADE_RANGE_SQ;
   return out;
 }

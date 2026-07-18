@@ -157,6 +157,10 @@ export class NameplatePainter {
       v.nameplate.classList.toggle('np-dead-enemy', deadEnemy);
       v.nameplate.classList.toggle('np-my-pet', e.ownerId === p.id);
       v.nameplate.classList.toggle('np-aggroed-on-me', e.aggroTargetId === p.id);
+      // Distance dim: runs every pass (not gated on fullPass/urgent below) so a
+      // plate's fade tracks the player's movement smoothly, not just on the
+      // throttled content refresh.
+      v.nameplate.classList.toggle('np-faded', plan.faded);
       if (!fullPass && !plan.urgent) continue;
       const isSelf = id === p.id;
       v.nameplate.classList.toggle('has-emote', plan.hasOverheadEmote);
@@ -363,6 +367,7 @@ export class NameplatePainter {
     v.nameplate.classList.remove('np-my-pet');
     v.nameplate.classList.remove('np-aggroed-on-me');
     v.nameplate.classList.remove('np-friendly-pet');
+    v.nameplate.classList.remove('np-faded');
   }
 
   private setNameplateStatic(
